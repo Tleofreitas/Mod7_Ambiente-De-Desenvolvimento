@@ -1,0 +1,31 @@
+Ubuntu, Curl, AWS CLI, Ping, Vim, SSH, pasta compartilhada: tmp, bash rodando
+
+Curl - Aplicativo para baixar coisas da Internet
+AWS CLI - Aplicativo para implantar na Amazon
+Vim - Editor VIM
+SSH - Para Conectar a Máquina Remota
+pasta compartilhada: tmp - Arquivos do Container salvos na Máquina Local (tmp é um exemplo, pode ser outro nome)
+bash rodando - Terminal liberado para usuário
+
+<< -------------------------- >>
+
+FROM ubuntu:20.04
+
+RUN apt-get update \
+  && apt-get install -y curl unzip
+
+RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
+  && unzip awscliv2.zip \
+  && ./aws/install \
+  && rm -rf aws awscliv2.zip
+
+RUN apt-get install -y iputils-ping \
+  && apt-get install -y vim \
+  && apt-get install -y openssh-server
+
+VOLUME /tmp
+
+CMD ["bash"]
+
+<< -------------------------- >>
+
